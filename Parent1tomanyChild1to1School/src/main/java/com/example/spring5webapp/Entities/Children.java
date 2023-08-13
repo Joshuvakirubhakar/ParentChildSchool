@@ -26,7 +26,7 @@ public class Children {
 	@JoinColumn(name = "pid")
 	private Parent parent;
 
-	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
 	@JoinColumn(name = "school_id")
 	private School school;
 
