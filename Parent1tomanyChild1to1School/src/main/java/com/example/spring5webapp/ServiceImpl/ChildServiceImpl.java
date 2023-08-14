@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.spring5webapp.Builder.ResponseBuilder;
 import com.example.spring5webapp.DTO.ResponseDTO;
 import com.example.spring5webapp.Entities.Children;
 import com.example.spring5webapp.Exception.IdNotFoundException;
@@ -17,6 +18,8 @@ public class ChildServiceImpl implements ChildService {
 
 	@Autowired
 	private Childrepo childrepo;
+	@Autowired
+	private ResponseBuilder responseBuilder;
 
 	@Override
 	public List<Children> getChildren() {
@@ -26,26 +29,14 @@ public class ChildServiceImpl implements ChildService {
 
 	@Override
 	public Children getChildrenById(int id) {
-//		Children children = null;
-//		try {
 		Optional<Children>	children = childrepo.findById(id);
-//		} catch (Exception e) {
-//			throw new IdNotFoundException("Children with id: " + id + ", Not found !!!");
-//		}
-//		System.out.println(children.getSchool().getChildren().getName());
 		return children.orElseThrow(()->new IdNotFoundException("Children with id: " + id + ", Not found !!!"));
 	}
 
 	@Override
 	public ResponseDTO postDetails(Children children) {
 		childrepo.save(children);
-		ResponseDTO responseDTO = new ResponseDTO();
-		responseDTO.setChild_ID(children.getCid());
-		responseDTO.setChild_name(children.getName());
-		responseDTO.setParent_name(children.getParent().getName());
-		responseDTO.setContact(children.getParent().getPhoneno());
-		responseDTO.setSchool_name(children.getSchool().getSchool_name());
-		responseDTO.setState(children.getSchool().getState());
+		ResponseDTO responseDTO = responseBuilder.getResponseDto(children);
 		return responseDTO;
 	}
 

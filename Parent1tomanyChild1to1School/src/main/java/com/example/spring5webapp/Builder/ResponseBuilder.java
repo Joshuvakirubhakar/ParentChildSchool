@@ -8,8 +8,6 @@ import com.example.spring5webapp.Entities.Children;
 @Component
 public class ResponseBuilder {
 	
-//	@Autowired
-//	ChildService childService;
 	
 	public ResponseDTO getResponseDto(Children children) {
 		ResponseDTO responseDTO = new ResponseDTO();
