@@ -35,7 +35,7 @@ public class ChildServiceImpl implements ChildService {
 
 	@Override
 	public ResponseDTO postDetails(Children children) {
-		childrepo.save(children);
+		children = childrepo.save(children);
 		ResponseDTO responseDTO = responseBuilder.getResponseDto(children);
 		return responseDTO;
 	}
