@@ -44,13 +44,13 @@ public class ChildServiceImpl implements ChildService {
 	public String deleteChildrenById(int id) {
 		Children children = null;
 		try {
-			children = getChildrenById(id);
+			//children = getChildrenById(id);
 //			childrepo.deleteById(children.getCid());
 			childrepo.deleteById(id); 
 		} catch (Exception e) {
 			throw new IdNotFoundException("Cannot delete children with Id: " + id + " --> ID Not found !!!");
 		}
-		System.out.println(children.getSchool().getChildren().getParent().getName());
+//		System.out.println(children.getSchool().getChildren().getParent().getName());
 		return "Child with id: " + id + " was Deleted successfully";
 	}
 
