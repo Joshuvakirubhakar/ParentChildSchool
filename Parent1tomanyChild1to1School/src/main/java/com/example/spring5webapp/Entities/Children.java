@@ -10,6 +10,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
@@ -24,10 +25,12 @@ public class Children {
 
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name = "pid")
+	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 	private Parent parent;
 
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
 	@JoinColumn(name = "school_id")
+	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 	private School school;
 
 	public Children(int cid, String name, Parent parent, School school) {

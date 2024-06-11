@@ -1,5 +1,6 @@
 package com.example.spring5webapp.ServiceImpl;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -9,6 +10,8 @@ import org.springframework.stereotype.Service;
 import com.example.spring5webapp.Builder.ResponseBuilder;
 import com.example.spring5webapp.DTO.ResponseDTO;
 import com.example.spring5webapp.Entities.Children;
+import com.example.spring5webapp.Entities.Parent;
+import com.example.spring5webapp.Entities.School;
 import com.example.spring5webapp.Exception.IdNotFoundException;
 import com.example.spring5webapp.Repository.Childrepo;
 import com.example.spring5webapp.Service.ChildService;
@@ -23,14 +26,14 @@ public class ChildServiceImpl implements ChildService {
 
 	@Override
 	public List<Children> getChildren() {
-		List<Children> children = childrepo.findAll();
-		return children;
+//		List<Children> children = childrepo.findAll();
+		return childrepo.findAll();
 	}
 
 	@Override
 	public Children getChildrenById(int id) {
-		Optional<Children>	children = childrepo.findById(id);
-		return children.orElseThrow(()->new IdNotFoundException("Children with id: " + id + ", Not found !!!"));
+		Optional<Children> children = childrepo.findById(id);
+		return children.orElseThrow(() -> new IdNotFoundException("Children with id: " + id + ", Not found !!!"));
 	}
 
 	@Override
@@ -44,14 +47,22 @@ public class ChildServiceImpl implements ChildService {
 	public String deleteChildrenById(int id) {
 		Children children = null;
 		try {
-			//children = getChildrenById(id);
+			// children = getChildrenById(id);
 //			childrepo.deleteById(children.getCid());
-			childrepo.deleteById(id); 
+			childrepo.deleteById(id);
 		} catch (Exception e) {
 			throw new IdNotFoundException("Cannot delete children with Id: " + id + " --> ID Not found !!!");
 		}
 //		System.out.println(children.getSchool().getChildren().getParent().getName());
 		return "Child with id: " + id + " was Deleted successfully";
+	}
+
+	@Override
+	public List<Children> getChildrenbyname(String name) {
+		// TODO Auto-generated method stub
+		List<Children> children = childrepo.findByName(name);
+
+		return children 	;
 	}
 
 }

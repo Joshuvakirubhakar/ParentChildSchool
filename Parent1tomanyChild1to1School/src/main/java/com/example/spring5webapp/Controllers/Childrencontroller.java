@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.spring5webapp.DTO.ResponseDTO;
@@ -45,6 +46,11 @@ public class Childrencontroller {
 	@DeleteMapping("/{id}")
 	public String deleteChildrenById(@PathVariable int id) {
 		return childService.deleteChildrenById(id);
+	}
+	
+	@GetMapping("/getchildbyname")
+	public ResponseEntity<List<Children>> getChildrenById(@RequestParam String name) {
+		return new ResponseEntity<>(childService.getChildrenbyname(name), HttpStatus.OK);
 	}
 
 }
